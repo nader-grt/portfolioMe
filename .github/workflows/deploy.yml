@@ -23,14 +23,14 @@ jobs:
           key: ${{ secrets.secrets.SSH_PRIVATE_KEY }}
           script: |
             # Go to home directory
-            cd /home/${{ secrets.EC2_USERNAME }}
+            cd /home/${{ secrets.EC2_USER }}
 
             # If repo does not exist, clone it
             if [ ! -d "your-repo-name" ]; then
-              git clone https://github.com/your-username/your-repo-name.git
+              git clone https://github.com/nader-grt/portfolioMe.git
             fi
 
-            cd your-repo-name
+            cd portfolioMe
 
             # Pull latest changes
             git pull origin main
