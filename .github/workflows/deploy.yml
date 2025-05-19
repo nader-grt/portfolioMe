@@ -33,7 +33,7 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_KEY }}
-          port: 22
+          port: 80
           source: "build/*"
           target: "/home/${{ secrets.EC2_PATH }}/react-app"
         
