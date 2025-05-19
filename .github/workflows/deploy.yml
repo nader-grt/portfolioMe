@@ -42,4 +42,50 @@ jobs:
 
             echo "✅ Deployment complete!"
 
-     
+     name: React Production Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-react:
+    name: 🚀 React Production Deployment
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🧾 Checkout Code
+        uses: actions/checkout@v3
+
+      - name: 🔐 Set up SSH for EC2 access
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.EC2_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+
+      - name: 🛠️ Build React App
+        run: |
+          npm ci
+          CI=false npm run build
+
+
+      - name: 📤 Upload build folder to EC2 temp path
+        run: |
+          rsync -avz -e "ssh -o StrictHostKeyChecking=no" build/ ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/home/${{ secrets.EC2_USER }}/react-build
+
+      - name: 🚀 Move build to /var/www/react and reload NGINX
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
+            set -e
+            echo "🔐 Moving build to /var/www/react..."
+            sudo rm -rf /var/www/react/*
+            sudo cp -r /home/${USER}/react-build/* /var/www/react/
+            sudo chmod -R 755 /var/www/react
+
+            echo "🔄 Reloading NGINX..."
+            sudo systemctl reload nginx
+
+            echo "✅ React deployment completed!"
+          EOF
