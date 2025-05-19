@@ -26,19 +26,4 @@ jobs:
         run: |
           npm ci
           CI=false npm run build
-      - name: 📤 Upload build folder to EC2 temp path
-        run: |
-           rsync -avz -e "ssh -o StrictHostKeyChecking=no" ./ root@${{ secrets.EC2_HOST }}:/root/portfolioMe
-      - name: 🚀 Move build to /var/www/portfolioMe and reload NGINX
-        run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
-            set -e
-            echo "Moving build to /var/www/portfolioMe..."
-            sudo rm -rf /var/www/portfolioMe/*
-            sudo cp -r /home/${USER}/react-build/* /var/www/portfolioMe/
-            sudo chmod -R 755 /var/www/portfolioMe
-            echo "Reloading NGINX..."
-            sudo systemctl reload nginx
-            echo "React deployment completed!"
-          EOF
-
+     
