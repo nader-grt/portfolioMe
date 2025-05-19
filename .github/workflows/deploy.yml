@@ -14,12 +14,14 @@ jobs:
       - name: 🧾 Checkout Code
         uses: actions/checkout@v3
 
-      - name:  Set up SSH for EC2 access
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+      - name: 📤 Deploy build folder to EC2 using ssh-deploy
+        uses: easingthemes/ssh-deploy@v2.1.5
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SOURCE: ${{ secrets.SOURCE_PATH }}           # e.g., set to build/
+          REMOTE_HOST: ${{ secrets.EC2_HOST }}
+          REMOTE_USER: ${{ secrets.EC2_USER  }}
+          TARGET: ${{ secrets.TARGET_PATH }} 
 
       - name: 🛠️ Build React App
         run: |
