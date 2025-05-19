@@ -7,49 +7,6 @@ on:
       - main
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.EC2_KEY }}
-          port: 22
-          timeout: 30s
-          command_timeout: 10m
-          script: |
-            cd /home/${{ secrets.EC2_USER }}
-
-            # Clone repo if not exists
-            if [ ! -d "portfolioMe" ]; then
-              git clone https://github.com/nader-grt/portfolioMe.git
-            fi
-
-            cd portfolioMe
-
-            # Pull latest code
-            git pull origin main
-
-            # Install and build
-            npm install
-            npm run build
-
-            echo "✅ Deployment complete!"
-
-     name: React Production Deploy
-
-on:
-  push:
-    branches:
-      - main
-
-jobs:
   deploy-react:
     name: 🚀 React Production Deployment
     runs-on: ubuntu-latest
