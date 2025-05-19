@@ -26,7 +26,7 @@ jobs:
             cd /home/${{ secrets.EC2_USER }}
 
             # If repo does not exist, clone it
-            if [ ! -d "your-repo-name" ]; then
+            if [ ! -d "portfolioMe" ]; then
               git clone https://github.com/nader-grt/portfolioMe.git
             fi
 
