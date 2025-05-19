@@ -26,10 +26,10 @@ jobs:
 
     - name: Setup SSH key
       run: |
-        mkdir -p ~/.ssh
-        echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan -H 164.92.161.221 >> ~/.ssh/known_hosts
+            mkdir -p ~/.ssh
+            echo "${{ secrets.EC2_KEY }}" > ~/.ssh/id_rsa
+            chmod 600 ~/.ssh/id_rsa
+            ssh-keyscan -H 164.92.161.221 >> ~/.ssh/known_hosts
 
     - name: Deploy to EC2 via rsync
       run: |
