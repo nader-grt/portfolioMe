@@ -1,47 +1,44 @@
-         
-name: Push To EC2 
+
+name: Push To EC2
 
 on:
   push:
     branches:
-      - main  # Change to your branch if needed
+      - main
 
 jobs:
-  deploy:
-    name: Deploy to EC2
+  deploy-react:
+    name: 🚀 React Production Deployment
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout source code
+      - name: 🧾 Checkout Code
         uses: actions/checkout@v3
 
-      - name: Deploy to EC2 via SSH
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.EC2_KEY }}
-          script: |
-            # Go to home directory
-            cd /home/${{ secrets.EC2_USER }}
+      - name: 📤 Deploy build folder to EC2 using ssh-deploy
+        uses: easingthemes/ssh-deploy@v2.1.5
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_KEY }}       
+          REMOTE_HOST: ${{ secrets.EC2_HOST }}
+          REMOTE_USER: ${{ secrets.EC2_USER  }}
 
-            # If repo does not exist, clone it
-            if [ ! -d "portfolioMe" ]; then
-              git clone https://github.com/nader-grt/portfolioMe.git
-            fi
+      - name: 🛠️ Build React App
+        run: |
+          npm ci
+          CI=false npm run build
+      - name: 📤 Upload build folder to EC2 temp path
+        run: |
+           rsync -avz -e "ssh -o StrictHostKeyChecking=no" ./ root@${{ secrets.EC2_HOST }}:/root/portfolioMe
+      - name: 🚀 Move build to /var/www/portfolioMe and reload NGINX
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
+            set -e
+            echo "Moving build to /var/www/portfolioMe..."
+            sudo rm -rf /var/www/portfolioMe/*
+            sudo cp -r /home/${USER}/react-build/* /var/www/portfolioMe/
+            sudo chmod -R 755 /var/www/portfolioMe
+            echo "Reloading NGINX..."
+            sudo systemctl reload nginx
+            echo "React deployment completed!"
+          EOF
 
-            cd portfolioMe
-
-            # Pull latest changes
-            git pull origin main
-
-            # Install dependencies
-            npm install
-
-            # Build the React app
-            npm run build
-
-            # (Optional) Move build to Nginx directory
-            # sudo cp -r build/* /usr/share/nginx/html/
-
-            echo "✅ Deployment complete!"
