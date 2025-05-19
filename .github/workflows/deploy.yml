@@ -21,6 +21,10 @@ jobs:
           echo "${{ secrets.EC2_KEY }}" >> ~/.ssh/id_rsa
           chmod 777 ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+      - name: 🐛 Debug SSH Setup
+        run: |
+          ls -la ~/.ssh
+          cat ~/.ssh/known_hosts
 
       - name: 🛠️ Build React App
         run: |
