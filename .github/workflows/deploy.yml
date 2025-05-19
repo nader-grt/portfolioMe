@@ -31,6 +31,4 @@ jobs:
             chmod 600 ~/.ssh/id_rsa
             ssh-keyscan -H 164.92.161.221 >> ~/.ssh/known_hosts
 
-    - name: Deploy to EC2 via rsync
-      run: |
-        rsync -avz -e "ssh -o StrictHostKeyChecking=no" build/ ubuntu@164.92.161.221:/var/www/html/
+ 
