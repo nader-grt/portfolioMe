@@ -1,31 +1,36 @@
-name: 🚀 Deploy React to EC2
+name: Deploy React App to EC2 with Nginx
 
 on:
   push:
-    branches: [main] # or 'master'
+    branches:
+      - main  # Or your main branch
 
 jobs:
   deploy:
-    name: Deploy to EC2
     runs-on: ubuntu-latest
 
     steps:
-      - name: 📦 Checkout repo
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      - name: 🛠️ Install dependencies
-        run: |
-          npm install
-          npm run build
+    - name: Install Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
 
-      - name: Deploy files to EC2
-        uses: appleboy/scp-action@v0.1.4
-        with:
-          host: "164.92.161.221"
-          username: "ubuntu" # Or your EC2 username
-          key: ${{ secrets.EC2_SSH_KEY }}
-          source: "build/"
-          target: "/var/www/html"
+    - name: Install dependencies
+      run: npm ci
 
-        
-          
+    - name: Build React app
+      run: npm run build
+
+    - name: Deploy via SCP to EC2
+      uses: appleboy/scp-action@v0.1.4
+      with:
+        host: 164.92.161.221
+        username: ubuntu                # or ec2-user for Amazon Linux
+        key: ${{ secrets.EC2_SSH_KEY }}
+        source: "build/*"
+        target: "/var/www/html"
+        rm: true                        # Remove existing files
+        overwrite: true
