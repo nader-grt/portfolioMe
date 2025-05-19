@@ -1,9 +1,9 @@
-name: Deploy React App to EC2 with Nginx
+name: Deploy React App to EC2
 
 on:
   push:
     branches:
-      - main  # Or your main branch
+      - main
 
 jobs:
   deploy:
@@ -24,13 +24,13 @@ jobs:
     - name: Build React app
       run: npm run build
 
-    - name: Deploy via SCP to EC2
-      uses: appleboy/scp-action@v0.1.4
-      with:
-        host: 164.92.161.221
-        username: ubuntu                # or ec2-user for Amazon Linux
-        key: ${{ secrets.EC2_SSH_KEY }}
-        source: "build/*"
-        target: "/var/www/html"
-        rm: true                        # Remove existing files
-        overwrite: true
+    - name: Setup SSH key
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H 164.92.161.221 >> ~/.ssh/known_hosts
+
+    - name: Deploy to EC2 via rsync
+      run: |
+        rsync -avz -e "ssh -o StrictHostKeyChecking=no" build/ ubuntu@164.92.161.221:/var/www/html/
