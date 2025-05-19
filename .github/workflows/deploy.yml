@@ -43,6 +43,6 @@ jobs:
             sudo systemctl reload nginx
     
             echo "✅ React deployment completed!"
-             EOF  
+            EOF  
 
  
