@@ -1,44 +1,37 @@
-name: Push To EC2
+name: 🚀 Deploy React to EC2
 
 on:
   push:
-    branches:
-      - main
+    branches: [main] # or 'master'
 
 jobs:
-  deploy-react:
-    name: 🚀 React Production Deployment
+  deploy:
+    name: Deploy to EC2
     runs-on: ubuntu-latest
 
     steps:
-      - name: 🧾 Checkout Code
+      - name: 📦 Checkout repo
         uses: actions/checkout@v3
 
-      - name: 🐛 Debug SSH Setup
+      - name: 🛠️ Install dependencies
         run: |
-          ls -la ~/.ssh
-          cat ~/.ssh/known_hosts
+          npm install
+          npm run build
 
-      - name: 🛠️ Build React App
-        run: |
-          npm ci
-          CI=false npm run build
+      - name: 📤 Upload build to EC2
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_KEY }}
+          source: "build/*"
+          target: "/home/${{ secrets.EC2_USER }}/react-app"
 
-      - name: 📤 Upload build folder to EC2 temp path
-        run: |
-          rsync -avz -e "ssh -o StrictHostKeyChecking=no" build/ ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/home/${{ secrets.EC2_USER }}/react-build
-
-      - name: 🚀 Move build to /var/www/react and reload NGINX
-        run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
-            set -e
-            echo "🔐 Moving build to /var/www/react..."
-            sudo rm -rf /var/www/react/*
-            sudo cp -r /home/${USER}/react-build/* /var/www/react/
-            sudo chmod -R 755 /var/www/react
-
-            echo "🔄 Reloading NGINX..."
-            sudo systemctl reload nginx
-
-            echo "✅ React deployment completed!"
-          EOF
+      - name: 🚀 Deploy on EC2 with SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_KEY }}
+          script: |
+            sudo systemctl restart nginx
