@@ -30,19 +30,29 @@ jobs:
             echo "${{ secrets.EC2_KEY }}" > ~/.ssh/id_rsa
             chmod 600 ~/.ssh/id_rsa
             ssh-keyscan -H 164.92.161.221 >> ~/.ssh/known_hosts
+            - name: 🛠️ Build React App
+            run: |
+              npm ci
+              CI=false npm run build
+    
+    
+    - name: 📤 Upload build folder to EC2 temp path
+      run: |
+              rsync -avz -e "ssh -o StrictHostKeyChecking=no" build/ ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/home/${{ secrets.EC2_USER }}/react-build
+    
     - name: 🚀 Move build to /var/www/react and reload NGINX
       run: |
-            ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
-            set -e
-            echo "🔐 Moving build to /var/www/react..."
-            sudo rm -rf /var/www/react/*
-            sudo cp -r /home/${USER}/react-build/* /var/www/react/
-            sudo chmod -R 755 /var/www/react
+              ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
+                set -e
+                echo "🔐 Moving build to /var/www/react..."
+                sudo rm -rf /var/www/react/*
+                sudo cp -r /home/${USER}/react-build/* /var/www/react/
+                sudo chmod -R 755 /var/www/react
     
-            echo "🔄 Reloading NGINX..."
-            sudo systemctl reload nginx
+                echo "🔄 Reloading NGINX..."
+                sudo systemctl reload nginx
     
-            echo "✅ React deployment completed!"
-            EOF  
+                echo "✅ React deployment completed!"
+              EOF
 
  
