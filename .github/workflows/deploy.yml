@@ -35,11 +35,9 @@ jobs:
             npm ci
             CI=false npm run build
     
-    
-    - name: 📤 Upload build folder to EC2 temp path
-      run: |
+            - name: 📤 Upload build folder to EC2 temp path
+            run: |
               rsync -avz -e "ssh -o StrictHostKeyChecking=no" build/ ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:/home/${{ secrets.EC2_USERNAME }}/react
-    
     - name: 🚀 Move build to /var/www/react and reload NGINX
       run: |
             ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} << 'EOF'
