@@ -3,7 +3,7 @@
 function App() {
   return (
     <div >
-           <h2>project React with deploy</h2>
+           <h2>project React with deploy hi!</h2>
     </div>
   );
 }
