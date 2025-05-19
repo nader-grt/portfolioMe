@@ -21,7 +21,7 @@ jobs:
       - name: 📤 Upload build to EC2
         uses: appleboy/scp-action@v0.1.4
         with:
-          host: ${{ secrets.EC2_HOST }}
+          host: "164.92.161.221"
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_KEY }}
           source: "build/*"
