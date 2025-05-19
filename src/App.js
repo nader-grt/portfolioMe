@@ -1,9 +1,8 @@
 
-import './App.css';
 
 function App() {
   return (
-    <div className="App">
+    <div >
            <h2>project React with deploy</h2>
     </div>
   );
