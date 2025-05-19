@@ -1,4 +1,4 @@
-name: React Production Deploy
+name: Push To EC2
 
 on:
   push:
