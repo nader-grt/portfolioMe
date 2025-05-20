@@ -10,40 +10,42 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
+    - name: 📦 Checkout code
       uses: actions/checkout@v3
-      with:
-       ref: main
 
-    - name: Install Node.js
-      uses: actions/setup-node@v2
+    - name: 🧰 Install Node.js
+      uses: actions/setup-node@v3
       with:
         node-version: 18
-   
 
-    - name: Install dependencies and build
-      run: |
-        npm ci
-        npm run build
+    - name: 📥 Install dependencies
+      run: npm ci
 
-    - name: Setup SSH key
+    - name: 🛠️ Build React App
+      run: CI=false npm run build
+
+    - name: 📦 Compress build folder
+      run: tar -czf build.tar.gz -C build .
+
+    - name: 🔐 Setup SSH
       run: |
         mkdir -p ~/.ssh
         echo "${{ secrets.EC2_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
 
-    - name: Upload to EC2
+    - name: 📤 Upload build archive to EC2
       run: |
-        rsync -avz -e "ssh -o StrictHostKeyChecking=no" build/ root@${{ secrets.EC2_HOST }}:/root/react-build
+        scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no build.tar.gz root@${{ secrets.EC2_HOST }}:/root/
 
-    - name: Move and Reload NGINX
+    - name: 🚀 Deploy on EC2 and Reload NGINX
       run: |
-        ssh -o StrictHostKeyChecking=no root@${{ secrets.EC2_HOST }} << 'EOF'
+        ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no root@${{ secrets.EC2_HOST }} << 'EOF'
           set -e
           mkdir -p /var/www/react
           rm -rf /var/www/react/*
-          cp -r /root/react-build/* /var/www/react/
+          tar -xzf /root/build.tar.gz -C /var/www/react
           chmod -R 755 /var/www/react
           systemctl reload nginx
+          echo "✅ Deployment complete!"
         EOF
