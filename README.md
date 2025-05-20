@@ -24,34 +24,35 @@ Inspired by a free template from [Free-CSS.com](https://www.free-css.com/assets/
 ### 2. Clone the Project
 
 ```bash
-git clone https://github.com/nader-grt/portfolioMe.git
-cd portfolioMe
-yarn
-yarn start
+        git clone https://github.com/nader-grt/portfolioMe.git
+        cd portfolioMe
+        npm i
+        npm start
 
 
 
-### 📤  Be happy
-1. Push Project from Local to GitHub
-
-**Open your terminal**, then run the following commands:
+    3. Push Project from Local to GitHub
 
 
-# Step into your project folder
-cd path/to/your-project
 
-# Initialize Git (if not already)
-git init
+    **Open your terminal**, then run the following commands:
 
-# Add all files including README.md
-git add .
 
-# Commit your changes
-git commit -m "Initial commit with C++ files and README"
+    # Step into your project folder
+    cd path/to/your-project
 
-# Add the remote GitHub repo (replace the URL with yours)
-git remote add origin https://github.com/nader-grt/portfolioMe.git
+    # Initialize Git (if not already)
+    git init
 
-# Push to GitHub
-git push -u origin main
+    # Add all files including README.md
+    git add .
+
+    # Commit your changes
+    git commit -m "Initial commit with C++ files and README"
+
+    # Add the remote GitHub repo (replace the URL with yours)
+    git remote add origin https://github.com/nader-grt/portfolioMe.git
+
+    # Push to GitHub
+    git push -u origin main
 
