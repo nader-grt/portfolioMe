@@ -10,46 +10,40 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+       ref: main
 
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
+    - name: Install Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: 18
+   
 
-      - name: Install dependencies
-        run: npm ci
+    - name: Install dependencies and build
+      run: |
+        npm ci
+        npm run build
 
-    
+    - name: Setup SSH key
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.EC2_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
 
-      - name: Setup SSH key
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.EC2_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+    - name: Upload to EC2
+      run: |
+        rsync -avz -e "ssh -o StrictHostKeyChecking=no" build/ root@${{ secrets.EC2_HOST }}:/root/react-build
 
-      - name: 🛠️ Build React App
-        run: |
-             npm ci
-             CI=false npm run build
-        
-      - name: 📤 Upload build folder to EC2 temp path
-        run: |
-          rsync -avz -e "ssh -o StrictHostKeyChecking=no" build/ ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:/home/${{ secrets.EC2_USERNAME }}/react-build
-           
-
-      - name: 🚀 Move build to /var/www/react and reload NGINX
-        run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} << 'EOF'
+    - name: Move and Reload NGINX
+      run: |
+        ssh -o StrictHostKeyChecking=no root@${{ secrets.EC2_HOST }} << 'EOF'
           set -e
-          echo "🔐 Moving build to /var/www/react..."
-          sudo mkdir -p /var/www/react
-          sudo rm -rf /var/www/react/*
-          sudo cp -r /home/${USER}/react-build/* /var/www/react/
-          sudo chmod -R 755 /var/www/react
-          echo "🔄 Reloading NGINX..."
-          sudo systemctl reload nginx
-          echo "✅ React deployment completed!"
-          EOF
+          mkdir -p /var/www/react
+          rm -rf /var/www/react/*
+          cp -r /root/react-build/* /var/www/react/
+          chmod -R 755 /var/www/react
+          systemctl reload nginx
+        EOF
