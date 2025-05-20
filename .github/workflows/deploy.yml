@@ -35,20 +35,31 @@ jobs:
             npm ci
             CI=false npm run build
     
-    - name: 📤 Upload build folder to EC2 temp path
+    - name: 📤 Upload build folder to EC2
       run: |
-              rsync -avz -e "ssh -o StrictHostKeyChecking=no" build/ ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:/home/${{ secrets.EC2_USERNAME }}/react-build
+           rsync -avz -e "ssh -o StrictHostKeyChecking=no" build/ ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:/tmp/react-build
+          
     - name: 🚀 Move build to /var/www/react and reload NGINX
       run: |
-            ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} << 'EOF'
-            set -e
-            echo "🔐 Moving build to /var/www/react..."
-            sudo rm -rf /var/www/react/*
-            sudo cp -r /home/${USER}/react-build/* /var/www/react/
-            sudo chmod -R 755 /var/www/react
-            echo "🔄 Reloading NGINX..."
-            sudo systemctl reload nginx    
-            echo "✅ React deployment completed!"
-            EOF
- 
+              ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} << 'EOF'
+                set -e
+          
+                # Ensure /var/www/react exists
+                sudo mkdir -p /var/www/react
+          
+                # Clean the folder before copying
+                sudo rm -rf /var/www/react/*
+          
+                # Move the build from /tmp to the final location
+                sudo cp -r /tmp/react-build/* /var/www/react/
+          
+                # Set correct permissions
+                sudo chmod -R 755 /var/www/react
+          
+                # Reload nginx
+                sudo systemctl reload nginx
+          
+                echo "✅ Deployment successful!"
+              EOF
+          
 
