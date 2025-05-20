@@ -1,32 +1,38 @@
-# React JS Project portfolioMe
+# 🚀 React JS Portfolio — Deployed to EC2 via GitHub Actions
 
-**
+## ✅ New & Improved Version Live!
 
-# 🛎️🛎️ Good news! New & improved [V2](https://github.com/nader-grt/portfolioMe.git) is out  
+Good news! The updated version of this portfolio is available at  
+🔗 [https://github.com/nader-grt/portfolioMe](https://github.com/nader-grt/portfolioMe)
 
-**
+---
 
+## 📄 Description
 
+This is a **ReactJS-based portfolio/landing page**, perfect for showcasing a startup or personal profile with a clean, single-page layout.
 
+Inspired by a free template from [Free-CSS.com](https://www.free-css.com/assets/files/free-css-templates/preview/page234/interact/), this project makes it easy to plug in your own content via `data.json`.
 
-## Description
-This is a ReactJS based landing page template, fit for a startup company/service with a one page view. The design is inspired by a template from <a href="https://www.free-css.com/assets/files/free-css-templates/preview/page234/interact/">Free-CSS.com </a>
-All 'visual' data can be easily modified by changing the data.json file.
+---
 
-## Make it Yours!
-### 1. Preps
-You will need to have <a href="https://nodejs.org/">Node JS</a> installed on your pc. 
+## 🛠 Setup Instructions
 
-### 2. Clone Files
-After cloning the files, you will have to run ```yarn``` followed by ```yarn start``` in the CLI
-### 3. Add your own data 
-Change the data in the ```data.json``` file as well as add any images to ```public/img/```
-You can also change styles by modifying the ```public/css``` files.
-If you need the contact form to work, you also need to create an EmailJS account, and modify the ```src/components/contact.jsx``` file to replace your own service ID, template ID and Public Key
+### 1. Prerequisites
+
+- Make sure [Node.js](https://nodejs.org/) is installed on your machine.
+
+### 2. Clone the Project
+
+```bash
+git clone https://github.com/nader-grt/portfolioMe.git
+cd portfolioMe
+yarn
+yarn start
+
 
 
 ### 📤  Be happy
-2. Push Project from Local to GitHub
+1. Push Project from Local to GitHub
 
 **Open your terminal**, then run the following commands:
 
