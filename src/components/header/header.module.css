@@ -1,0 +1,38 @@
+.header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.img_attachment > img {
+    max-width: 100%;
+    height: auto;
+    background-attachment: fixed !important;
+  }
+  
+  
+@media (min-width:768px) and (max-width:991px){
+  .headersm {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+ 
+}
+
+
+@media (max-width:767px){
+    .headersm {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-around !important;
+        align-items: center !important;
+        margin: 45px 0px 45px;
+    }
+    .headersm img{
+       
+        margin: 45px 0px 45px;
+    }
+
+}

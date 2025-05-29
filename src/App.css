@@ -1,0 +1,12 @@
+.app{
+
+  background-color: rgba(1, 1, 21, 0.9);
+  min-height: calc(450px - 72px);
+}
+
+
+.footer__fin{
+
+  background-color: rgb(28, 6, 52);
+  min-height: 400px;
+}

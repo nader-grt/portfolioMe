@@ -1,0 +1,19 @@
+.text__ul{
+    color: white;
+}
+
+
+.title__logo {
+   
+    color: #FF0000 !important;
+    font-size: 20px !important;
+    font-weight: 500;
+}
+.navlink{
+    text-decoration: none;
+
+}
+.navlink:hover{
+    color: rgb(195, 41, 54) !important;
+
+}

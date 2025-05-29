@@ -1,0 +1,108 @@
+.footer{
+
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+
+.social   > a {
+    color: #fff !important;
+   text-decoration: none;
+}
+.social   > a:hover {
+color: rgb(195, 41, 54) !important;
+
+}
+
+
+
+.labeladress:hover{
+
+    color: rgb(195, 41, 54) !important;
+}
+
+
+
+@media (min-width:768px) and (max-width:991px){
+    .headersm {
+          display: flex !important;
+          flex-direction: column !important;
+      }
+   
+  }
+  
+  
+  @media (max-width:767px){
+.endcontentone h3{
+    width: max-content;
+    margin-bottom: 20px !important;
+}
+    .socialcontentTop{
+        color: #fff !important;
+        font-size: 2px !important;
+        margin: 10px 250px  10px  -65px;
+        font-weight: 300 !important;
+        width: 200px !important;
+        text-align: center !important;
+  
+    }
+
+    .socialcontentTopAdress{
+        width: max-content;
+        margin-left: -55px !important;
+    }
+      .footersm  {
+       
+          flex-direction: column !important;
+          justify-content: space-around !important;
+          align-items: center !important;
+          margin: 15px 0px 15px;
+      
+      }
+
+      .footersm   .endcontenthree {
+      
+
+   
+text-align: center;
+    
+     width: fit-content;
+   
+  
+     }
+    
+ .endcontentsocial{ 
+
+    display: flex !important;
+    justify-content: space-around !important;
+ }
+  .endcontentsocial .social {
+        display: flex  !important;
+        flex-direction: column !important;
+        justify-content: space-around !important;
+  }
+
+  .endcontentsocial .social a {
+    margin-right: 10px !important;
+  }
+
+  .footersm{
+    margin-right: 8px !important;
+  }
+
+  .endcontentword h3 {
+    text-align: center !important;
+    margin-bottom: 25px !important;
+  }
+  .endcontentwordabout , .endcontentwordcontact{
+margin-top: 25px !important;
+
+  }
+  .social span i{
+    text-align: center !important;
+  }
+  }
+
+
+
+
