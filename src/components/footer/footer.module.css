@@ -1,107 +1,165 @@
-.footer{
-
-    display: flex;
-    justify-content: center;
-    align-items: center; 
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #333;
+  padding: 20px 0;
 }
 
-.social   > a {
-    color: #fff !important;
-   text-decoration: none;
-}
-.social   > a:hover {
-color: rgb(195, 41, 54) !important;
-
+.social > a {
+  color: #fff !important;
+  text-decoration: none;
 }
 
-
-
-.labeladress:hover{
-
-    color: rgb(195, 41, 54) !important;
+.social > a:hover {
+  color: rgb(195, 41, 54) !important;
+  text-decoration: underline;
 }
 
-
-
-@media (min-width:768px) and (max-width:991px){
-    .headersm {
-          display: flex !important;
-          flex-direction: column !important;
-      }
-   
-  }
-  
-  
-  @media (max-width:767px){
-.endcontentone h3{
-    width: max-content;
-    margin-bottom: 20px !important;
+.labeladress:hover {
+  color: rgb(195, 41, 54) !important;
 }
-    .socialcontentTop{
-        color: #fff !important;
-        font-size: 2px !important;
-        margin: 10px 250px  10px  -65px;
-        font-weight: 300 !important;
-        width: 200px !important;
-        text-align: center !important;
-  
-    }
 
-    .socialcontentTopAdress{
-        width: max-content;
-        margin-left: -55px !important;
-    }
-      .footersm  {
-       
-          flex-direction: column !important;
-          justify-content: space-around !important;
-          align-items: center !important;
-          margin: 15px 0px 15px;
-      
-      }
+.labeladress {
+  font-size: 1rem;
+  font-weight: bold;
+}
 
-      .footersm   .endcontenthree {
-      
+.footersm {
+  flex-direction: column !important;
+  justify-content: space-around !important;
+  align-items: center !important;
+  margin: 15px 0px 15px;
+  margin-right: 8px !important;
+  flex-wrap: wrap;
+}
 
-   
-text-align: center;
-    
-     width: fit-content;
-   
-  
-     }
-    
- .endcontentsocial{ 
+.endcontentone h3 {
+  width: max-content;
+  margin-bottom: 20px !important;
+}
 
+.endcontentone,
+.endcontentword,
+.endcontenthree {
+  margin-bottom: 20px;
+}
+
+.endcontentword h3 {
+  text-align: center !important;
+  margin-bottom: 25px !important;
+}
+
+.endcontentwordabout,
+.endcontentwordcontact {
+  margin-top: 25px !important;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.endcontent {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.socialcontentTop {
+  color: #fff !important;
+  font-size: 2px !important;
+  margin: 10px 250px 10px -65px;
+  font-weight: 300 !important;
+  width: 200px !important;
+  text-align: center !important;
+}
+
+.socialcontentTopAdress {
+  width: max-content;
+  margin-left: -55px !important;
+}
+
+.endcontentsocial {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-around !important;
+}
+
+.endcontentsocial .social {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-around !important;
+  margin-bottom: 10px;
+}
+
+.endcontentsocial .social a {
+  margin-right: 10px !important;
+  color: #fff;
+  text-decoration: none;
+}
+
+.social span i {
+  text-align: center !important;
+}
+
+.endcontenthree {
+  text-align: center;
+  width: fit-content;
+}
+
+.endcontentwordabout,
+.endcontentwordcontact {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Responsive Styles */
+@media (min-width: 768px) and (max-width: 991px) {
+  .headersm {
     display: flex !important;
-    justify-content: space-around !important;
- }
-  .endcontentsocial .social {
-        display: flex  !important;
-        flex-direction: column !important;
-        justify-content: space-around !important;
+    flex-direction: column !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .footersm {
+    flex-direction: column;
+    align-items: center;
   }
 
-  .endcontentsocial .social a {
-    margin-right: 10px !important;
+  .endcontentone,
+  .endcontentword,
+  .endcontenthree {
+    text-align: center;
   }
 
-  .footersm{
-    margin-right: 8px !important;
+  .social {
+    text-align: center;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1200px) {
+  .footersm {
+    flex-direction: row;
+    justify-content: space-between;
   }
 
-  .endcontentword h3 {
-    text-align: center !important;
-    margin-bottom: 25px !important;
+  .endcontentone,
+  .endcontentword,
+  .endcontenthree {
+    text-align: left;
   }
-  .endcontentwordabout , .endcontentwordcontact{
-margin-top: 25px !important;
+}
 
+@media (min-width: 1201px) {
+  .footersm {
+    flex-direction: row;
+    justify-content: space-between;
   }
-  .social span i{
-    text-align: center !important;
+
+  .endcontentone,
+  .endcontentword,
+  .endcontenthree {
+    text-align: left;
   }
-  }
+}
 
 
 

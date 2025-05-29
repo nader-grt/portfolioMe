@@ -15,7 +15,8 @@ function Footer() {
                 <span style={{ color: "#fff", margin: "0px 10px" }}>
                   <i class="fa-brands fa-facebook"></i>
                 </span>
-                <a target="_blanck" href="https://www.facebook.com/profile.php?id=100011508180270">
+                <a tar
+                ùget="_blanck" href="https://www.facebook.com/profile.php?id=100011508180270">
                   Facebook
                 </a>
               </p>
