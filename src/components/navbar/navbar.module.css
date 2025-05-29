@@ -1,19 +1,29 @@
-.text__ul{
-    color: white;
-}
-
-
 .title__logo {
-   
     color: #FF0000 !important;
-    font-size: 20px !important;
-    font-weight: 500;
+    font-size: 1.5rem !important;
+    font-weight: 600;
 }
-.navlink{
+
+.navlink {
     text-decoration: none;
-
+    transition: color 0.3s ease;
 }
-.navlink:hover{
-    color: rgb(195, 41, 54) !important;
 
+.navlink:hover {
+    color: rgb(195, 41, 54) !important;
+}
+
+/* Optional mobile styles */
+@media (max-width: 768px) {
+  .text__ul {
+    background-color: #1e1e1e; /* Match VS Code theme */
+    padding: 10px;
+    border-radius: 8px;
+  }
+
+  .navlink {
+    padding: 10px 0;
+    display: block;
+    text-align: center;
+  }
 }
