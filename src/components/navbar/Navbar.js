@@ -9,7 +9,7 @@ function Navbar() {
         <div className="row">
           <div className="col-9 mx-auto">
             <nav className="navbar navbar-expand-lg p-3">
-              <Link className={`navbar-brand ${navbares.title__logo}`} to="#">Nader</Link>
+              <Link className={`navbar-brand ${navbares.title__logo}`} to="/">Nader</Link>
 
               <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
