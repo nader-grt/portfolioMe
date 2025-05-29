@@ -23,7 +23,7 @@ function Footer() {
                 <span style={{ color: "#fff", margin: "0px 10px" }}>
                   <i class="fa-brands fa-github"></i>
                 </span>
-                <a target="_blanck" href="https://github.com/NADER-001cv">
+                <a target="_blanck" href="https://github.com/nader-grt">
                 Github
               </a>
               </p>
