@@ -2,48 +2,46 @@ import contactes from './contact.module.css';
 
 function Contact() {
   return (
-    <div className={contactes.contact}>
+    <section className={contactes.contactSection}>
       <div className="container">
-        <div className="row mt-5">
-          <div className="col-12 col-lg-10 mx-auto">
-            <div className={`d-flex flex-wrap justify-content-between align-items-stretch gap-4 ${contactes.formsm}`}>
-              
-              {/* Contact Form */}
-              <div className="col-12 col-md-6">
-                <form className={`${contactes.Contact__form} shadow`}>
-                  <div className="mb-4">
-                    <label>Name</label>
-                    <input type="text" placeholder="Enter your name" />
-                  </div>
-                  <div className="mb-4">
-                    <label>Subject</label>
-                    <input type="text" placeholder="Subject here..." />
-                  </div>
-                  <div className="mb-4">
-                    <label>Message</label>
-                    <textarea placeholder="Your message here..."></textarea>
-                  </div>
-                  <div>
-                    <input type="submit" value="Send Message" className="btn btn-primary" />
-                  </div>
-                </form>
-              </div>
-
-              {/* Info Card */}
-              <div className="col-12 col-md-5">
-                <div className={`${contactes.card}`}>
-                  <h5>Contact Info</h5>
-                  <p><strong>Email:</strong> nader@example.com</p>
-                  <p><strong>Phone:</strong> +216 56 14 85 14</p>
-                  <p><strong>Location:</strong> Tunisia, North Africa</p>
+        <div className="row justify-content-center align-items-center">
+          
+          {/* Left: Form */}
+          <div className="col-lg-6 col-md-10">
+            <div className={contactes.formBox}>
+              <h2 className="mb-4 text-white text-center">Get in Touch</h2>
+              <form>
+                <div className="mb-3">
+                  <label className="form-label text-white">Your Name</label>
+                  <input type="text" className="form-control" placeholder="John Doe" />
                 </div>
-              </div>
-
+                <div className="mb-3">
+                  <label className="form-label text-white">Your Email</label>
+                  <input type="email" className="form-control" placeholder="example@mail.com" />
+                </div>
+                <div className="mb-3">
+                  <label className="form-label text-white">Message</label>
+                  <textarea className="form-control" rows="4" placeholder="Write your message..."></textarea>
+                </div>
+                <button type="submit" className={`btn ${contactes.submitBtn}`}>Send Message</button>
+              </form>
             </div>
           </div>
+
+          {/* Right: Info */}
+          <div className="col-lg-5 col-md-10 mt-5 mt-lg-0">
+            <div className={contactes.infoCard}>
+              <h4>Let's Connect</h4>
+              <p><strong>Email:</strong> nader@example.com</p>
+              <p><strong>Phone:</strong> +216 56 14 85 14</p>
+              <p><strong>Location:</strong> Tunisia, North Africa</p>
+              <p>I love hearing from users and new opportunities. Feel free to drop a message!</p>
+            </div>
+          </div>
+
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 
