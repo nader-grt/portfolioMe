@@ -35,7 +35,7 @@ function Header() {
               >
                 <h3 className="text-center">
                   <span>
-                    I'm kossay Chargui{' '}
+                    I'm Nader Chargui{' '}
                   </span>
                   <span style={{ color: 'red' }}>
                     <TypeWriter />
