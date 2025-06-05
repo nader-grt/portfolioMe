@@ -1,11 +1,12 @@
 import { Link, NavLink } from "react-router-dom";
 import navbares from "./navbar.module.css";
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'; // Needed for toggle
+import { useEffect } from "react";
 
 function Navbar() {
 
   // Add this to useEffect in the component (React)
-React.useEffect(() => {
+useEffect(() => {
   const navLinks = document.querySelectorAll(".nav-link");
   const navbarCollapse = document.getElementById("navbarSupportedContent");
   
