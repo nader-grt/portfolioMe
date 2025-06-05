@@ -3,6 +3,22 @@ import navbares from "./navbar.module.css";
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'; // Needed for toggle
 
 function Navbar() {
+
+  // Add this to useEffect in the component (React)
+React.useEffect(() => {
+  const navLinks = document.querySelectorAll(".nav-link");
+  const navbarCollapse = document.getElementById("navbarSupportedContent");
+  
+  navLinks.forEach(link => {
+    link.addEventListener("click", () => {
+      const bsCollapse = new bootstrap.Collapse(navbarCollapse, {
+        toggle: false
+      });
+      bsCollapse.hide();
+    });
+  });
+}, []);
+
   return (
     <div>
       <div className="container">
