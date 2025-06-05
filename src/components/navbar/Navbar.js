@@ -1,24 +1,24 @@
 import { Link, NavLink } from "react-router-dom";
 import navbares from "./navbar.module.css";
-import 'bootstrap/dist/js/bootstrap.bundle.min.js'; // Needed for toggle
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import Collapse from 'bootstrap/js/dist/collapse';
 import { useEffect } from "react";
 
 function Navbar() {
 
-  // Add this to useEffect in the component (React)
-useEffect(() => {
-  const navLinks = document.querySelectorAll(".nav-link");
-  const navbarCollapse = document.getElementById("navbarSupportedContent");
-  
-  navLinks.forEach(link => {
-    link.addEventListener("click", () => {
-      const bsCollapse = new bootstrap.Collapse(navbarCollapse, {
-        toggle: false
+  useEffect(() => {
+    const navLinks = document.querySelectorAll(".nav-link");
+    const navbarCollapse = document.getElementById("navbarSupportedContent");
+
+    navLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        const bsCollapse = new Collapse(navbarCollapse, {
+          toggle: false
+        });
+        bsCollapse.hide();
       });
-      bsCollapse.hide();
     });
-  });
-}, []);
+  }, []);
 
   return (
     <div>
